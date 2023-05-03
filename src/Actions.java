@@ -56,6 +56,9 @@ public class Actions {
 
                 // Obter a resposta
                 int responseCode = con.getResponseCode();
+                if (! "200".equals(responseCode) ){
+                        tokenArea.setText("Error : " + responseCode);
+                }
                 BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
                 String inputLine;
                 StringBuffer response = new StringBuffer();
