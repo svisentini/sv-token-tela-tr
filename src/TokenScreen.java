@@ -10,9 +10,6 @@ public class TokenScreen {
                 frame.setTitle("Access token generator");
                 JPanel mainPanel = new JPanel();
                 mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-//                JPanel headingPanel = new JPanel();
-//                JLabel headingLabel = new JLabel("Contact Us Panel");
-//                headingPanel.add(headingLabel);
                 JPanel panel = new JPanel(new GridBagLayout());
 // Constraints for the layout
                 GridBagConstraints constr = new GridBagConstraints();
@@ -28,11 +25,11 @@ public class TokenScreen {
 
                 JTextField nameInput = new JTextField(20);
                 JTextField passwordInput = new JPasswordField(20);
-                String[] environmentOptions = {"Dev                ", "QA"};
+                String[] environmentOptions = {"devInt                ", "qaInt"};
                 JComboBox<String> environmentComboBox = new JComboBox<>(environmentOptions);
-                String[] systemOptions = {"Export           ", "Import", "InOut", "MasterData"};
+                String[] systemOptions = {"ImportInt           "};
                 JComboBox<String> systemComboBox = new JComboBox<>(systemOptions);
-                JTextArea tokenArea = new JTextArea(3, 30);
+                JTextArea tokenArea = new JTextArea(2, 80);
 
                 // Default values
                 nameInput.setText("0180500");
@@ -83,8 +80,10 @@ public class TokenScreen {
                         public void actionPerformed(ActionEvent e) {
 
                                 try {
+                                        tokenArea.setText("Processing .....");
                                         tokenArea.setText(Actions.actionGenerate(nameInput, passwordInput, systemComboBox, environmentComboBox, tokenArea));
                                 } catch (IOException ex) {
+                                        tokenArea.setText("Error processing token");
                                         throw new RuntimeException(ex);
                                 }
                         }
@@ -113,17 +112,9 @@ public class TokenScreen {
                 mainPanel.add(panel);
                 frame.add(mainPanel);
                 frame.pack();
-                frame.setSize(600, 300);
+                frame.setSize(1200, 270);
                 frame.setLocationRelativeTo(null);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setVisible(true);
         }
-
-
-
-
-
-
 }
-
-
