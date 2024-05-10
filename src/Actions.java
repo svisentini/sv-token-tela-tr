@@ -23,31 +23,33 @@ public class Actions {
         }
         static String actionGenerate(JTextField nameInput, JTextField passwordInput, JComboBox<String> systemComboBox, JComboBox<String> environmentComboBox, JTextArea tokenArea) throws IOException {
                 tokenArea.setText("Processing .....");
-                String usuarioAplicacao = nameInput.getText();
-                String senhaAplicacao = passwordInput.getText();
-                String sistemaAplicacao = Utils.getCodSistema(systemComboBox.getSelectedItem().toString().trim());
-                String ambienteAplicacao = Utils.getEnvironment(environmentComboBox.getSelectedItem().toString().trim());
+                String username = nameInput.getText();
+                String password = passwordInput.getText();
+                String systemCode = Utils.getCodSistema(systemComboBox.getSelectedItem().toString().trim());
+                String companyId = Utils.getEnvironment(environmentComboBox.getSelectedItem().toString().trim());
 
 
-                if (usuarioAplicacao == null){
-                        usuarioAplicacao = "0180500";
+                if (username == null){
+                        username = "0180500";
                 }
-                if (senhaAplicacao == null){
-                        senhaAplicacao = "swadm123";
+                if (password == null){
+                        password = "swadm123";
                 }
 
-                String url = "https://ogt-gtm-next-" + ambienteAplicacao + ".int.thomsonreuters.com/auth-service/oauth/token";
+
+                String url = "https://ogt-gtm-next-dev.int.thomsonreuters.com/auth-v2-service/oauth2/token";
                 URL obj = new URL(url);
                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
                 // Configurar a requisição
                 con.setRequestMethod("POST");
-                con.setRequestProperty("companyId", ambienteAplicacao + "1");
+                con.setRequestProperty("companyId", companyId);
+                con.setRequestProperty("Accept-Language", "pt-BR");
                 con.setRequestProperty("Authorization", "Basic Y2xpZW50OjEyMw==");
-                con.setRequestProperty("Cookie", "BIGipServerOSGT-DEV-NEXT-80=2768736522.20480.0000");
+                con.setRequestProperty("Cookie", "SESSION=ODA2Y2QwZTMtNTIzOS00Mjk2LTkzM2ItZjhmMTRmODMxOTEy; SESSION=YmU4ODc1ZTQtMzg3Yy00N2U1LWFjODYtMTQ5NGM4M2UzYWE4");
 
                 // Definir o corpo da requisição
-                String urlParameters = "grant_type=password&username=" + usuarioAplicacao + "&password=" + senhaAplicacao;
+                String urlParameters = "grant_type=urn:ietf:params:oauth:grant-type:password&username=" + username + "&password=" + password;
                 con.setDoOutput(true);
                 OutputStream os = con.getOutputStream();
                 os.write(urlParameters.getBytes());
@@ -56,9 +58,6 @@ public class Actions {
 
                 // Obter a resposta
                 int responseCode = con.getResponseCode();
-                if (! "200".equals(responseCode) ){
-                        tokenArea.setText("Error : " + responseCode);
-                }
                 BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
                 String inputLine;
                 StringBuffer response = new StringBuffer();
@@ -67,51 +66,43 @@ public class Actions {
                 }
                 in.close();
 
-                // Extrair o access_token da resposta
+
                 String responseBody = response.toString();
-                String accessToken = responseBody.substring(responseBody.indexOf(":\"") + 2, responseBody.indexOf("\",\"token_type"));
+                String accessToken = responseBody.substring(responseBody.indexOf(":\"") + 2, responseBody.indexOf("suggests_password_change")-3);
+
 
 
                 // =========================================================================================
 
-                String url2 = "https://ogt-gtm-next-" + ambienteAplicacao + ".int.thomsonreuters.com/auth-service/oauth/token";
-                URL obj2 = new URL(url2);
-                HttpURLConnection con2 = (HttpURLConnection) obj2.openConnection();
+
+                url = "https://ogt-gtm-next-dev.int.thomsonreuters.com/auth-v2-service/oauth2/token?systemCode=" + systemCode;
+                obj = new URL(url);
+                con = (HttpURLConnection) obj.openConnection();
 
                 // Configurar a requisição
-                con2.setRequestMethod("POST");
-                con2.setRequestProperty("companyId", ambienteAplicacao + "1");
-                con2.setRequestProperty("Authorization", "Basic Y2xpZW50OjEyMw==");
-                con2.setRequestProperty("Cookie", "BIGipServerOSGT-DEV-NEXT-80=2768736522.20480.0000");
+                con.setRequestMethod("POST");
+                con.setRequestProperty("companyId", companyId);
+                con.setRequestProperty("Authorization", "Basic Y2xpZW50OjEyMw==");
+                con.setRequestProperty("Cookie", "SESSION=ODA2Y2QwZTMtNTIzOS00Mjk2LTkzM2ItZjhmMTRmODMxOTEy; SESSION=YmU4ODc1ZTQtMzg3Yy00N2U1LWFjODYtMTQ5NGM4M2UzYWE4");
 
                 // Definir o corpo da requisição
-                String urlParameters2 = "grant_type=access_token&username=" + usuarioAplicacao + "&password=" + senhaAplicacao + "&system_code=" + sistemaAplicacao + "&access_token=" + accessToken;
-                con2.setDoOutput(true);
-                OutputStream os2 = con2.getOutputStream();
-                os2.write(urlParameters2.getBytes());
-                os2.flush();
-                os2.close();
+                urlParameters = "grant_type=urn:ietf:params:oauth:grant-type:access_token&access_token=" + accessToken;
+                con.setDoOutput(true);
+                os = con.getOutputStream();
+                os.write(urlParameters.getBytes());
+                os.flush();
+                os.close();
 
                 // Obter a resposta
-                int responseCode2 = con2.getResponseCode();
-                BufferedReader in2 = new BufferedReader(new InputStreamReader(con2.getInputStream()));
-                String inputLine2;
-                StringBuffer response2 = new StringBuffer();
-                while ((inputLine2 = in2.readLine()) != null) {
-                        response2.append(inputLine2);
+                responseCode = con.getResponseCode();
+                in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                response = new StringBuffer();
+                while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
                 }
-                in2.close();
+                in.close();
 
-                // Extrair o access_token da resposta
-                String responseBody2 = response2.toString();
-                String accessToken2 = responseBody2.substring(responseBody2.indexOf(":\"") + 2, responseBody2.indexOf("\",\"token_type"));
-
-                return(accessToken2);
+                return response.toString().substring(response.toString().indexOf(":\"") + 2, response.toString().indexOf("token_type")-3);
 
         }
-
-
-
 }
-
-
