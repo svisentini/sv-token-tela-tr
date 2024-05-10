@@ -18,6 +18,12 @@ public class Utils {
                         case "QA":
                                 environment = "qa";
                                 break;
+                        case "devInt":
+                                environment = "devInt";
+                                break;
+                        case "qaInt":
+                                environment = "qaInt";
+                                break;
 
                         default:
                                 environment = "dev";
@@ -33,8 +39,12 @@ public class Utils {
                         case "Import":
                                 sistemaAplicacao = "9";
                                 break;
+                        case "ImportInt":
+                                sistemaAplicacao = "308";
+                                break;
                         case "InOut":
                                 sistemaAplicacao = "1000";
+                                break;
                         case "MasterData":
                                 sistemaAplicacao = "0";
                                 break;
@@ -43,8 +53,4 @@ public class Utils {
                 }
                 return sistemaAplicacao;
         }
-
-
 }
-
-
