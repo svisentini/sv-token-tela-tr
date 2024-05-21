@@ -1,5 +1,8 @@
 # sv-token-tela-tr
 Tela e gerador de token para TR
 
-V1.0
+V2.0 - Internacional
+
+# Para gerar o .jar
+Build >> Build Artifacts
 
