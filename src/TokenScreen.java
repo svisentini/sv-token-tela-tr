@@ -7,7 +7,7 @@ public class TokenScreen {
         public static void main(String[] args) {
 // Create frame with title Registration Demo
                 JFrame frame = new JFrame();
-                frame.setTitle("Access token generator - International - V2.0");
+                frame.setTitle("Access token generator - International - V2.1");
                 JPanel mainPanel = new JPanel();
                 mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
                 JPanel panel = new JPanel(new GridBagLayout());
@@ -25,9 +25,12 @@ public class TokenScreen {
 
                 JTextField nameInput = new JTextField(20);
                 JTextField passwordInput = new JPasswordField(20);
-                String[] environmentOptions = {"devInt                ", "qaInt"};
+                String[] environmentOptions = {
+                        "568 - devInt            ",
+                        "568 - qaInt"
+                };
                 JComboBox<String> environmentComboBox = new JComboBox<>(environmentOptions);
-                String[] systemOptions = {"ImportInt           "};
+                String[] systemOptions = {"ImportInt                 "};
                 JComboBox<String> systemComboBox = new JComboBox<>(systemOptions);
                 JTextArea tokenArea = new JTextArea(5, 20);
                 tokenArea.setLineWrap(true);  // Habilita a quebra de linha

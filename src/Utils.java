@@ -18,11 +18,11 @@ public class Utils {
                         case "QA":
                                 environment = "qa";
                                 break;
-                        case "devInt":
-                                environment = "devInt";
+                        case "568 - devInt":
+                                environment = "568";
                                 break;
-                        case "qaInt":
-                                environment = "qaInt";
+                        case "568 - qaInt":
+                                environment = "568";
                                 break;
 
                         default:
