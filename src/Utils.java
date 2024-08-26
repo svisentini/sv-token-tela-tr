@@ -24,6 +24,9 @@ public class Utils {
                         case "568 - qaInt":
                                 environment = "568";
                                 break;
+                        case "574 - devBR":
+                                environment = "574";
+                                break;
 
                         default:
                                 environment = "dev";
@@ -36,10 +39,13 @@ public class Utils {
                         case "Export":
                                 sistemaAplicacao = "2";
                                 break;
-                        case "Import":
+                        case "574 - devBR":
                                 sistemaAplicacao = "9";
                                 break;
-                        case "ImportInt":
+                        case "568 - devInt":
+                                sistemaAplicacao = "308";
+                                break;
+                        case "568 - qaInt":
                                 sistemaAplicacao = "308";
                                 break;
                         case "InOut":

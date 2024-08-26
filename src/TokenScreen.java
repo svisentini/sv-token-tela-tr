@@ -20,18 +20,19 @@ public class TokenScreen {
                 JLabel nameLabel = new JLabel("Username :");
                 JLabel passwordLabel = new JLabel("Password :");
                 JLabel environmentLabel = new JLabel("Environment :");
-                JLabel systemLabel = new JLabel("System :");
+//                JLabel systemLabel = new JLabel("System :");
                 JLabel tokenLabel = new JLabel("Token :");
 
                 JTextField nameInput = new JTextField(20);
                 JTextField passwordInput = new JPasswordField(20);
                 String[] environmentOptions = {
                         "568 - devInt            ",
-                        "568 - qaInt"
+                        "568 - qaInt",
+                        "574 - devBR"
                 };
                 JComboBox<String> environmentComboBox = new JComboBox<>(environmentOptions);
-                String[] systemOptions = {"ImportInt                 "};
-                JComboBox<String> systemComboBox = new JComboBox<>(systemOptions);
+                //String[] systemOptions = {"ImportInt                 "};
+                //JComboBox<String> systemComboBox = new JComboBox<>(systemOptions);
                 JTextArea tokenArea = new JTextArea(5, 20);
                 tokenArea.setLineWrap(true);  // Habilita a quebra de linha
                 tokenArea.setWrapStyleWord(true);  // Habilita a quebra de palavras
@@ -40,7 +41,7 @@ public class TokenScreen {
                 nameInput.setText("0180500");
                 passwordInput.setText("swadm123");
                 environmentComboBox.setSelectedIndex(0); // Define a seleção inicial
-                systemComboBox.setSelectedIndex(0);
+                //systemComboBox.setSelectedIndex(0);
 
                 Integer coluna = 0;
                 // Username
@@ -62,11 +63,11 @@ public class TokenScreen {
                 constr.gridx = coluna + 1;
                 panel.add(environmentComboBox, constr);
                 // System
-                constr.gridx = coluna;
-                constr.gridy = 3;
-                panel.add(systemLabel, constr);
-                constr.gridx = coluna + 1;
-                panel.add(systemComboBox, constr);
+//                constr.gridx = coluna;
+//                constr.gridy = 3;
+//                panel.add(systemLabel, constr);
+//                constr.gridx = coluna + 1;
+//                panel.add(systemComboBox, constr);
                 // Token
                 constr.gridx = coluna;
                 constr.gridy = 4;
@@ -90,7 +91,8 @@ public class TokenScreen {
 
                                 new Thread(() -> {
                                         try {
-                                                tokenArea.setText(Actions.actionGenerate(nameInput, passwordInput, systemComboBox, environmentComboBox, tokenArea));
+//                                                tokenArea.setText(Actions.actionGenerate(nameInput, passwordInput, systemComboBox, environmentComboBox, tokenArea));
+                                                tokenArea.setText(Actions.actionGenerate(nameInput, passwordInput, environmentComboBox, tokenArea));
                                         } catch (IOException ex) {
                                                 tokenArea.setText("Error processing token");
                                                 throw new RuntimeException(ex);

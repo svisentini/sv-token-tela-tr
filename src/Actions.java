@@ -21,11 +21,12 @@ public class Actions {
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(selection, selection);
         }
-        static String actionGenerate(JTextField nameInput, JTextField passwordInput, JComboBox<String> systemComboBox, JComboBox<String> environmentComboBox, JTextArea tokenArea) throws IOException {
+        static String actionGenerate(JTextField nameInput, JTextField passwordInput, JComboBox<String> environmentComboBox, JTextArea tokenArea) throws IOException {
                 tokenArea.setText("Processing .....");
                 String username = nameInput.getText();
                 String password = passwordInput.getText();
-                String systemCode = Utils.getCodSistema(systemComboBox.getSelectedItem().toString().trim());
+//                String systemCode = Utils.getCodSistema(systemComboBox.getSelectedItem().toString().trim());
+                String systemCode = Utils.getCodSistema(environmentComboBox.getSelectedItem().toString().trim());
                 String companyId = Utils.getEnvironment(environmentComboBox.getSelectedItem().toString().trim());
 
 
