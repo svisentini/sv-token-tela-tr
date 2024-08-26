@@ -135,7 +135,7 @@ public class TokenScreen {
                 mainPanel.add(panel);
                 frame.add(mainPanel);
                 frame.pack();
-                frame.setSize(600, 350);
+                frame.setSize(580, 300);
                 frame.setLocationRelativeTo(null);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setVisible(true);
